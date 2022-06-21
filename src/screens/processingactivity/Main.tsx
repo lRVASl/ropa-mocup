@@ -13,12 +13,15 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { Route, useRouteMatch, Switch, useParams } from 'react-router-dom'
+import {
 
-import {Main } from "./Main"
-import {Detail } from "./Detail"
+  useHistory,
+} from "react-router-dom";
+
 const { TabPane } = Tabs;
 
-export const ProcessingActivity: React.FC<{}> = () => {
+export const Main: React.FC<{}> = () => {
+  const { push } = useHistory();
   const [loading, setLoading] = useState(false);
   // const { Title } = Typography;
 
@@ -56,6 +59,7 @@ export const ProcessingActivity: React.FC<{}> = () => {
       dataIndex: "key",
       key: "key",
       fixed: "left",
+      render :((text:any) =>  text+1)
     },
     {
       title: "Name",
@@ -63,6 +67,7 @@ export const ProcessingActivity: React.FC<{}> = () => {
       dataIndex: "name",
       key: "name",
       fixed: "left",
+      render : (text: string, record: any, index: number) => <a onClick={() => push(`/ProcessingActivity/${record.key}`)}>{text}</a>
     },
     {
       title: "Type",
@@ -137,13 +142,57 @@ export const ProcessingActivity: React.FC<{}> = () => {
     },
   ];
   return (
-    <Switch>
-    <Route path={`/ProcessingActivity/:id`}>
-      <Detail  />
-    </Route>
-    <Route path={`/ProcessingActivity`}>
-      <Main    />
-    </Route>
-  </Switch>
+    <>
+      <Row
+        gutter={[
+          { xs: 8, sm: 16 },
+          { xs: 8, sm: 16 },
+        ]}
+      >
+        <Card
+          style={{ width: "100%", textAlign: "left" }}
+          title={
+            <Row>
+              <b style={{ fontSize: "24px" }}>Processing Activity</b>
+            </Row>
+          }
+        >
+              <Row
+                gutter={[
+                  { xs: 8, sm: 16 },
+                  { xs: 8, sm: 16 },
+                ]}
+                style={{ marginTop: "2rem" }}
+              >
+                <Card
+                  style={{ width: "100%", textAlign: "left" }}
+                  title={
+                    <Row>
+                      <Col span={1} offset={12}>
+                        Filter:
+                      </Col>
+                      <Col span={6}>
+                        <Input placeholder="search" />
+                      </Col>
+                      <Col span={4} offset={1}>
+                        <Button type="primary"> + Add Policy</Button>
+                      </Col>
+                    </Row>
+                  }
+                >
+                  <Table
+                    columns={columns}
+                    dataSource={data}
+                    scroll={{
+                      x: 1500,
+                      y: 300,
+                    }}
+                  />
+                </Card>
+              </Row>
+            
+        </Card>
+      </Row>
+    </>
   );
 };

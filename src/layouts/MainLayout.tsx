@@ -99,9 +99,9 @@ export const MainLayout: React.FC = (): React.ReactElement => {
         {
           label: "Processing Activity",
           icon: <FormOutlined style={{ display: "none" }} />,
-          path: "/Processing Activity",
+          path: "/ProcessingActivity",
           showInMenu: true,
-          target: "/Processing Activity",
+          target: "/ProcessingActivity",
           roles: [UserRole.authSuperAdmin],
           component: <ProcessingActivity />,
         },

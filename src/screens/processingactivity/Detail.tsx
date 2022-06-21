@@ -13,12 +13,15 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { Route, useRouteMatch, Switch, useParams } from 'react-router-dom'
+import {
 
-import {Main } from "./Main"
-import {Detail } from "./Detail"
+  useHistory,
+} from "react-router-dom";
+
 const { TabPane } = Tabs;
 
-export const ProcessingActivity: React.FC<{}> = () => {
+export const Detail: React.FC<{}> = () => {
+  const { push } = useHistory();
   const [loading, setLoading] = useState(false);
   // const { Title } = Typography;
 
@@ -56,6 +59,7 @@ export const ProcessingActivity: React.FC<{}> = () => {
       dataIndex: "key",
       key: "key",
       fixed: "left",
+      render :((text:any) =>  text+1)
     },
     {
       title: "Name",
@@ -63,6 +67,7 @@ export const ProcessingActivity: React.FC<{}> = () => {
       dataIndex: "name",
       key: "name",
       fixed: "left",
+      render : (text: string, record: any, index: number) => <a onClick={() => push(`/ProcessingActivity/${record.key}`)}>{text}</a>
     },
     {
       title: "Type",
@@ -137,13 +142,16 @@ export const ProcessingActivity: React.FC<{}> = () => {
     },
   ];
   return (
-    <Switch>
-    <Route path={`/ProcessingActivity/:id`}>
-      <Detail  />
-    </Route>
-    <Route path={`/ProcessingActivity`}>
-      <Main    />
-    </Route>
-  </Switch>
+    <>
+    <Card>
+    <Tabs>
+        <TabPane tab="Details "></TabPane>
+        <TabPane tab="Assessment "></TabPane>
+        <TabPane tab="Risk "></TabPane>
+        <TabPane tab="Attachment "></TabPane>
+    </Tabs> 
+    </Card>
+      
+    </> 
   );
 };
