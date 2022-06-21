@@ -1,9 +1,44 @@
-import { DashboardFilled } from "@ant-design/icons";
-import { Card, Row, Space, Table, Tooltip, Typography } from "antd";
+import { DashboardFilled, MenuOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Card,
+  Col,
+  Dropdown,
+  Input,
+  Menu,
+  Row,
+  Space,
+  Table,
+  Tooltip,
+  Typography,
+} from "antd";
 import React, { useEffect, useState } from "react";
 
 export const PolicyManagement: React.FC<{}> = () => {
   const [loading, setLoading] = useState(false);
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: "1",
+          label: (
+            <a target="_blank" rel="noopener noreferrer">
+              Edit
+            </a>
+          ),
+        },
+        {
+          key: "2",
+          label: (
+            <a target="_blank" rel="noopener noreferrer">
+              Delete
+            </a>
+          ),
+        },
+      ]}
+    />
+  );
+
   const { Title } = Typography;
   const columns: any = [
     {
@@ -58,10 +93,17 @@ export const PolicyManagement: React.FC<{}> = () => {
       fixed: "right",
       width: 100,
       render: () => {
-        return <></>;
+        return (
+          <>
+            <Dropdown overlay={menu} placement="bottomLeft" arrow>
+              <MenuOutlined />
+            </Dropdown>
+          </>
+        );
       },
     },
   ];
+
   const data = [];
 
   for (let i = 0; i < 5; i++) {
@@ -94,7 +136,22 @@ export const PolicyManagement: React.FC<{}> = () => {
         ]}
         style={{ marginTop: "2rem" }}
       >
-        <Card style={{ width: "100%", textAlign: "left" }}>
+        <Card
+          style={{ width: "100%", textAlign: "left" }}
+          title={
+            <Row>
+              <Col span={1} offset={12}>
+                Filter:
+              </Col>
+              <Col span={6}>
+                <Input placeholder="search" />
+              </Col>
+              <Col span={4} offset={1}>
+                <Button type="primary"> + Add Policy</Button>
+              </Col>
+            </Row>
+          }
+        >
           <Table
             columns={columns}
             dataSource={data}

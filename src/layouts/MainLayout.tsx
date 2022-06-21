@@ -17,13 +17,19 @@ import {
 import { BrowserRouter as Router } from "react-router-dom";
 import {
   BarChartOutlined,
+  BarsOutlined,
   CaretDownOutlined,
+  ContainerOutlined,
   DashboardOutlined,
   FormOutlined,
+  LineChartOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  PartitionOutlined,
+  ProfileOutlined,
   ReadOutlined,
   SettingOutlined,
+  ToolOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { createAuth24TokenReader, useAuth24, UserRole } from "../common-auth";
@@ -77,7 +83,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
     },
     {
       label: "Assessments",
-      icon: <FormOutlined />,
+      icon: <BarsOutlined />,
       path: "/assessments",
       showInMenu: true,
       target: "/assessments",
@@ -86,13 +92,13 @@ export const MainLayout: React.FC = (): React.ReactElement => {
     },
     {
       label: "Inventory",
-      icon: <FormOutlined />,
+      icon: <ContainerOutlined />,
       path: "/inventory",
       showInMenu: true,
       subMenu: [
         {
           label: "Processing Activity",
-          icon: <FormOutlined />,
+          icon: <FormOutlined style={{ display: "none" }} />,
           path: "/Processing Activity",
           showInMenu: true,
           target: "/Processing Activity",
@@ -101,7 +107,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
         },
         {
           label: "Assets",
-          icon: <FormOutlined />,
+          icon: <FormOutlined style={{ display: "none" }} />,
           path: "/assets",
           showInMenu: true,
           target: "/assets",
@@ -110,7 +116,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
         },
         {
           label: "Vendor",
-          icon: <FormOutlined />,
+          icon: <FormOutlined style={{ display: "none" }} />,
           path: "/vendor",
           showInMenu: true,
           target: "/vendor",
@@ -119,7 +125,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
         },
         {
           label: "Location",
-          icon: <FormOutlined />,
+          icon: <FormOutlined style={{ display: "none" }} />,
           path: "/location",
           showInMenu: true,
           target: "/location",
@@ -133,7 +139,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
     },
     {
       label: "Workflow",
-      icon: <FormOutlined />,
+      icon: <PartitionOutlined />,
       path: "/workflow",
       showInMenu: true,
       target: "/workflow",
@@ -142,16 +148,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
     },
     {
       label: "Activity",
-      icon: <FormOutlined />,
-      path: "/activity",
-      showInMenu: true,
-      target: "/activity",
-      roles: [UserRole.authSuperAdmin],
-      component: <Activity />,
-    },
-    {
-      label: "Activity",
-      icon: <FormOutlined />,
+      icon: <ProfileOutlined />,
       path: "/activity",
       showInMenu: true,
       target: "/activity",
@@ -161,7 +158,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
 
     {
       label: "Report",
-      icon: <FormOutlined />,
+      icon: <LineChartOutlined />,
       path: "/report",
       showInMenu: true,
       target: "/report",
@@ -170,7 +167,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
     },
     {
       label: "Setting",
-      icon: <FormOutlined />,
+      icon: <SettingOutlined />,
       path: "/setting",
       showInMenu: true,
       target: "/setting",
@@ -180,7 +177,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
 
     {
       label: "Configuration",
-      icon: <FormOutlined />,
+      icon: <ToolOutlined />,
       path: "/configuration",
       showInMenu: true,
       target: "/configuration",
