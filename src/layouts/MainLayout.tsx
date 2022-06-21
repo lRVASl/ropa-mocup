@@ -33,9 +33,21 @@ import { MainRoute, MenuItem } from "./MainRoute";
 
 import logo from "./images/D-PDPA.jpg";
 import { OverviewDashboard } from "../screens/dashboard/OverviewDashboard";
-import { OverviewCreate} from "../screens/create-processing/OverviewCreate"
+import { OverviewCreate } from "../screens/create-processing/OverviewCreate";
 import { loadAppConfig } from "../config/app-config";
 import { OverviewSettingModal } from "./components/OverviewSettingModal";
+import { PolicyManagement } from "../screens/policymanagement/PolicyManagement";
+import { Assessments } from "../screens/assessments/Assessments";
+import { Inventory } from "../screens/inventory/Inventory";
+import { ProcessingActivity } from "../screens/processingactivity/ProcessingActivity";
+import { Assets } from "../screens/assets/Assets";
+import { Vendor } from "../screens/vendor/Vendor";
+import { Location } from "../screens/location/Location";
+import { Workflow } from "../screens/workflow/Workflow";
+import { Activity } from "../screens/activity/Activity";
+import { Report } from "../screens/report/Report";
+import { Setting } from "../screens/setting/Setting";
+import { Configuration } from "../screens/configuration/Configuration";
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -55,14 +67,126 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       component: <OverviewDashboard />,
     },
     {
-      label: "Create Processing Activities Profile",
+      label: "Policy Management",
       icon: <FormOutlined />,
-      path: "/createprocessingactivitiesprofile",
+      path: "/policymanagement",
       showInMenu: true,
-      target: "/createprocessingactivitiesprofile",
+      target: "/policymanagement",
       roles: [UserRole.authSuperAdmin],
-      component: <OverviewCreate />,
-    }
+      component: <PolicyManagement />,
+    },
+    {
+      label: "Assessments",
+      icon: <FormOutlined />,
+      path: "/assessments",
+      showInMenu: true,
+      target: "/assessments",
+      roles: [UserRole.authSuperAdmin],
+      component: <Assessments />,
+    },
+    {
+      label: "Inventory",
+      icon: <FormOutlined />,
+      path: "/inventory",
+      showInMenu: true,
+      subMenu: [
+        {
+          label: "Processing Activity",
+          icon: <FormOutlined />,
+          path: "/Processing Activity",
+          showInMenu: true,
+          target: "/Processing Activity",
+          roles: [UserRole.authSuperAdmin],
+          component: <ProcessingActivity />,
+        },
+        {
+          label: "Assets",
+          icon: <FormOutlined />,
+          path: "/assets",
+          showInMenu: true,
+          target: "/assets",
+          roles: [UserRole.authSuperAdmin],
+          component: <Assets />,
+        },
+        {
+          label: "Vendor",
+          icon: <FormOutlined />,
+          path: "/vendor",
+          showInMenu: true,
+          target: "/vendor",
+          roles: [UserRole.authSuperAdmin],
+          component: <Vendor />,
+        },
+        {
+          label: "Location",
+          icon: <FormOutlined />,
+          path: "/location",
+          showInMenu: true,
+          target: "/location",
+          roles: [UserRole.authSuperAdmin],
+          component: <Location />,
+        },
+      ].filter((menu) => reader.hasRole(menu.roles)),
+      target: "/inventory",
+      roles: [UserRole.authSuperAdmin],
+      component: <Inventory />,
+    },
+    {
+      label: "Workflow",
+      icon: <FormOutlined />,
+      path: "/workflow",
+      showInMenu: true,
+      target: "/workflow",
+      roles: [UserRole.authSuperAdmin],
+      component: <Workflow />,
+    },
+    {
+      label: "Activity",
+      icon: <FormOutlined />,
+      path: "/activity",
+      showInMenu: true,
+      target: "/activity",
+      roles: [UserRole.authSuperAdmin],
+      component: <Activity />,
+    },
+    {
+      label: "Activity",
+      icon: <FormOutlined />,
+      path: "/activity",
+      showInMenu: true,
+      target: "/activity",
+      roles: [UserRole.authSuperAdmin],
+      component: <Activity />,
+    },
+
+    {
+      label: "Report",
+      icon: <FormOutlined />,
+      path: "/report",
+      showInMenu: true,
+      target: "/report",
+      roles: [UserRole.authSuperAdmin],
+      component: <Report />,
+    },
+    {
+      label: "Setting",
+      icon: <FormOutlined />,
+      path: "/setting",
+      showInMenu: true,
+      target: "/setting",
+      roles: [UserRole.authSuperAdmin],
+      component: <Setting />,
+    },
+
+    {
+      label: "Configuration",
+      icon: <FormOutlined />,
+      path: "/configuration",
+      showInMenu: true,
+      target: "/configuration",
+      roles: [UserRole.authSuperAdmin],
+      component: <Configuration />,
+    },
   ].filter((menu) => reader.hasRole(menu.roles));
 
   const [collapse, setCollapse] = React.useState(false);

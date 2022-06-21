@@ -2,7 +2,7 @@ import { DashboardFilled } from "@ant-design/icons";
 import { Card, Row, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 
-export const OverviewDashboard: React.FC<{}> = () => {
+export const Vendor: React.FC<{}> = () => {
   const [loading, setLoading] = useState(false);
   const { Title } = Typography;
   return (
@@ -14,9 +14,7 @@ export const OverviewDashboard: React.FC<{}> = () => {
         ]}
       >
         <Card style={{ width: "100%", textAlign: "left" }}>
-          <DashboardFilled style={{ fontSize: "24px" }} />
-          {"     "}
-          <b style={{ fontSize: "24px" }}>Overview</b>
+          <b style={{ fontSize: "24px" }}>Vendor</b>
         </Card>
       </Row>
       <Row
