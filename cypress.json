@@ -1,0 +1,15 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "chromeWebSecurity": false,
+  "testFiles": [
+    "screen/login/login.spec.ts",
+    "screen/overview/Overview.spec.ts",
+    "screen/policy-management/PolicyManagement.spec.ts",
+    "screen/purpose-management/PurposeManagement.spec.ts",
+    "screen/purpose-profile/PurposeProfile.spec.ts",
+    "screen/channel-management/ChannelManagement.spec.ts",
+    "screen/data-subjects/DataSubjects.spec.ts",
+    "screen/summary-report/SummaryReport.spec.ts"
+  ]
+}
+
