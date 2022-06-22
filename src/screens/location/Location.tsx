@@ -1,7 +1,7 @@
 import { DashboardFilled } from "@ant-design/icons";
-import { Card, Row, Typography } from "antd";
+import { Card, Row, Typography, Image } from "antd";
 import React, { useEffect, useState } from "react";
-
+import images from "./images/map.jpg";
 export const Location: React.FC<{}> = () => {
   const [loading, setLoading] = useState(false);
   const { Title } = Typography;
@@ -24,8 +24,8 @@ export const Location: React.FC<{}> = () => {
         ]}
         style={{ marginTop: "2rem" }}
       >
-        <Card style={{ width: "100%", textAlign: "left" }}>
-          <h1>TEST2</h1>
+        <Card>
+          <Image width={1600} src={images} />
         </Card>
       </Row>
     </>

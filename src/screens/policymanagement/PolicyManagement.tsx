@@ -4,9 +4,12 @@ import {
   Card,
   Col,
   Dropdown,
+  Form,
   Input,
   Menu,
+  Modal,
   Row,
+  Select,
   Space,
   Table,
   Tooltip,
@@ -14,8 +17,15 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 
-export const PolicyManagement: React.FC<{}> = () => {
+const { Option } = Select;
+interface Props {
+  baseUrl: string;
+}
+export const PolicyManagement: React.FC<Props> = ({ baseUrl }) => {
   const [loading, setLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
+
   const menu = (
     <Menu
       items={[
@@ -38,6 +48,38 @@ export const PolicyManagement: React.FC<{}> = () => {
       ]}
     />
   );
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const onGenderChange = (value: any) => {
+    switch (value) {
+      case "male":
+        form.setFieldsValue({
+          note: "Hi, man!",
+        });
+        return;
+
+      case "female":
+        form.setFieldsValue({
+          note: "Hi, lady!",
+        });
+        return;
+
+      case "other":
+        form.setFieldsValue({
+          note: "Hi there!",
+        });
+    }
+  };
 
   const { Title } = Typography;
   const columns: any = [
@@ -54,6 +96,9 @@ export const PolicyManagement: React.FC<{}> = () => {
       dataIndex: "name",
       key: "name",
       fixed: "left",
+      render: (name: any) => {
+        return <a>{name}</a>;
+      },
     },
     {
       title: "Type",
@@ -106,10 +151,10 @@ export const PolicyManagement: React.FC<{}> = () => {
 
   const data = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 1; i < 6; i++) {
     data.push({
       key: i,
-      name: `Edrward ${i}`,
+      name: `Name ${i}`,
       type: `การจัดเก็บ ลบ และทำลายข้อมูล ${i}`,
       policytemplate: `PDPA${i}`,
       createdby: `Jones Dermot ${i}`,
@@ -117,6 +162,15 @@ export const PolicyManagement: React.FC<{}> = () => {
       createddate: `2021-04-21 11:59:24 ${i}`,
     });
   }
+  const layout = {
+    labelCol: {
+      span: 8,
+    },
+    wrapperCol: {
+      span: 16,
+    },
+  };
+
   return (
     <>
       <Row
@@ -147,7 +201,10 @@ export const PolicyManagement: React.FC<{}> = () => {
                 <Input placeholder="search" />
               </Col>
               <Col span={4} offset={1}>
-                <Button type="primary"> + Add Policy</Button>
+                <Button type="primary" onClick={showModal}>
+                  {" "}
+                  + Add Policy
+                </Button>
               </Col>
             </Row>
           }
@@ -160,6 +217,64 @@ export const PolicyManagement: React.FC<{}> = () => {
               y: 300,
             }}
           />
+          <Modal
+            title="Add Policy"
+            visible={isModalVisible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <Form {...layout} form={form} name="control-hooks">
+              <Form.Item
+                name="name"
+                label="Name"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="type"
+                label="Type"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <Select
+                  placeholder="Select Type"
+                  onChange={onGenderChange}
+                  allowClear
+                >
+                  <Option value="male">male</Option>
+                  <Option value="female">female</Option>
+                  <Option value="other">other</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item
+                name="policytemplate"
+                label="Policy Template"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <Select
+                  placeholder="Select Template"
+                  onChange={onGenderChange}
+                  allowClear
+                >
+                  <Option value="male">male</Option>
+                  <Option value="female">female</Option>
+                  <Option value="other">other</Option>
+                </Select>
+              </Form.Item>
+            </Form>
+          </Modal>
         </Card>
       </Row>
     </>

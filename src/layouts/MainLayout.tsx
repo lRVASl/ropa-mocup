@@ -54,6 +54,7 @@ import { Activity } from "../screens/activity/Activity";
 import { Report } from "../screens/report/Report";
 import { Setting } from "../screens/setting/Setting";
 import { Configuration } from "../screens/configuration/Configuration";
+import { ProcessingActivityRoute } from "../screens/processingactivity/ProcessingActivityRoute";
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -79,7 +80,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       showInMenu: true,
       target: "/policymanagement",
       roles: [UserRole.authSuperAdmin],
-      component: <PolicyManagement />,
+      component: <PolicyManagement baseUrl={"/policymanagement"} />,
     },
     {
       label: "Assessments",
@@ -99,11 +100,13 @@ export const MainLayout: React.FC = (): React.ReactElement => {
         {
           label: "Processing Activity",
           icon: <FormOutlined style={{ display: "none" }} />,
-          path: "/Processing Activity",
+          path: "/processingactivity",
           showInMenu: true,
-          target: "/Processing Activity",
+          target: "/processingactivity",
           roles: [UserRole.authSuperAdmin],
-          component: <ProcessingActivity />,
+          component: (
+            <ProcessingActivityRoute baseUrl={"/processingactivity"} />
+          ),
         },
         {
           label: "Assets",
