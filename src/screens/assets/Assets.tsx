@@ -12,9 +12,16 @@ import {
   Tabs,
 } from "antd";
 import React, { useEffect, useState } from "react";
+import { Switch, Route } from "react-router";
+import { DetailAsset } from "./DetailAsset";
+import { MainAsset } from "./MainAsset";
+
+interface Props {
+  baseUrl: string;
+}
 
 const { TabPane } = Tabs;
-export const Assets: React.FC<{}> = () => {
+export const Assets: React.FC<Props> = ({ baseUrl }) => {
   const [loading, setLoading] = useState(false);
   // const { Title } = Typography;
   const menu = (
@@ -122,234 +129,13 @@ export const Assets: React.FC<{}> = () => {
     });
   }
   return (
-    <>
-      <Row
-        gutter={[
-          { xs: 8, sm: 16 },
-          { xs: 8, sm: 16 },
-        ]}
-      ></Row>
-      <Card
-        style={{ width: "100%", textAlign: "left" }}
-        title={
-          <Row>
-            <b style={{ fontSize: "24px" }}>Processing Activity</b>
-          </Row>
-        }
-      >
-        <Tabs defaultActiveKey="1" onChange={onChange}>
-          <TabPane tab="Details" key="1">
-            <Row
-              gutter={[
-                { xs: 8, sm: 16 },
-                { xs: 8, sm: 16 },
-              ]}
-              style={{ marginTop: "2rem" }}
-            >
-              <Card
-                style={{ width: "100%", textAlign: "left" }}
-                title={
-                  <Row>
-                    <Col span={1} offset={12}>
-                      Filter:
-                    </Col>
-                    <Col span={6}>
-                      <Input placeholder="search" />
-                    </Col>
-                    <Col span={4} offset={1}>
-                      <Button type="primary"> + Add Policy</Button>
-                    </Col>
-                  </Row>
-                }
-              >
-                <Table
-                  columns={columns}
-                  dataSource={data}
-                  scroll={{
-                    x: 1500,
-                    y: 300,
-                  }}
-                />
-              </Card>
-            </Row>
-          </TabPane>
-          <TabPane tab="Activity" key="2">
-            <Row
-              gutter={[
-                { xs: 8, sm: 16 },
-                { xs: 8, sm: 16 },
-              ]}
-              style={{ marginTop: "2rem" }}
-            >
-              <Card
-                style={{ width: "100%", textAlign: "left" }}
-                title={
-                  <Row>
-                    <Col span={1} offset={12}>
-                      Filter:
-                    </Col>
-                    <Col span={6}>
-                      <Input placeholder="search" />
-                    </Col>
-                    <Col span={4} offset={1}>
-                      <Button type="primary"> + Add Policy</Button>
-                    </Col>
-                  </Row>
-                }
-              >
-                <Table
-                  columns={columns}
-                  dataSource={data}
-                  scroll={{
-                    x: 1500,
-                    y: 300,
-                  }}
-                />
-              </Card>
-            </Row>
-          </TabPane>
-          <TabPane tab="Assessment" key="3">
-            <Row
-              gutter={[
-                { xs: 8, sm: 16 },
-                { xs: 8, sm: 16 },
-              ]}
-              style={{ marginTop: "2rem" }}
-            >
-              <Card
-                style={{ width: "100%", textAlign: "left" }}
-                title={
-                  <Row>
-                    <Col span={1} offset={12}>
-                      Filter:
-                    </Col>
-                    <Col span={6}>
-                      <Input placeholder="search" />
-                    </Col>
-                    <Col span={4} offset={1}>
-                      <Button type="primary"> + Add Policy</Button>
-                    </Col>
-                  </Row>
-                }
-              >
-                <Table
-                  columns={columns}
-                  dataSource={data}
-                  scroll={{
-                    x: 1500,
-                    y: 300,
-                  }}
-                />
-              </Card>
-            </Row>
-          </TabPane>
-          <TabPane tab="Related" key="4">
-            <Row
-              gutter={[
-                { xs: 8, sm: 16 },
-                { xs: 8, sm: 16 },
-              ]}
-              style={{ marginTop: "2rem" }}
-            >
-              <Card
-                style={{ width: "100%", textAlign: "left" }}
-                title={
-                  <Row>
-                    <Col span={1} offset={12}>
-                      Filter:
-                    </Col>
-                    <Col span={6}>
-                      <Input placeholder="search" />
-                    </Col>
-                    <Col span={4} offset={1}>
-                      <Button type="primary"> + Add Policy</Button>
-                    </Col>
-                  </Row>
-                }
-              >
-                <Table
-                  columns={columns}
-                  dataSource={data}
-                  scroll={{
-                    x: 1500,
-                    y: 300,
-                  }}
-                />
-              </Card>
-            </Row>
-          </TabPane>
-          <TabPane tab="Risk" key="5">
-            <Row
-              gutter={[
-                { xs: 8, sm: 16 },
-                { xs: 8, sm: 16 },
-              ]}
-              style={{ marginTop: "2rem" }}
-            >
-              <Card
-                style={{ width: "100%", textAlign: "left" }}
-                title={
-                  <Row>
-                    <Col span={1} offset={12}>
-                      Filter:
-                    </Col>
-                    <Col span={6}>
-                      <Input placeholder="search" />
-                    </Col>
-                    <Col span={4} offset={1}>
-                      <Button type="primary"> + Add Policy</Button>
-                    </Col>
-                  </Row>
-                }
-              >
-                <Table
-                  columns={columns}
-                  dataSource={data}
-                  scroll={{
-                    x: 1500,
-                    y: 300,
-                  }}
-                />
-              </Card>
-            </Row>
-          </TabPane>
-          <TabPane tab="Attachment" key="6">
-            <Row
-              gutter={[
-                { xs: 8, sm: 16 },
-                { xs: 8, sm: 16 },
-              ]}
-              style={{ marginTop: "2rem" }}
-            >
-              <Card
-                style={{ width: "100%", textAlign: "left" }}
-                title={
-                  <Row>
-                    <Col span={1} offset={12}>
-                      Filter:
-                    </Col>
-                    <Col span={6}>
-                      <Input placeholder="search" />
-                    </Col>
-                    <Col span={4} offset={1}>
-                      <Button type="primary"> + Add Policy</Button>
-                    </Col>
-                  </Row>
-                }
-              >
-                <Table
-                  columns={columns}
-                  dataSource={data}
-                  scroll={{
-                    x: 1500,
-                    y: 300,
-                  }}
-                />
-              </Card>
-            </Row>
-          </TabPane>
-        </Tabs>
-      </Card>
-    </>
+    <Switch>
+      <Route path={`/Assets/:id`}>
+        <DetailAsset baseUrl={baseUrl} />
+      </Route>
+      <Route path={`/Assets`}>
+        <MainAsset baseUrl={baseUrl} />
+      </Route>
+    </Switch>
   );
 };

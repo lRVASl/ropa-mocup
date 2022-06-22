@@ -1,27 +1,10 @@
-import { DashboardFilled, MenuOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Card,
-  Col,
-  Dropdown,
-  Form,
-  Input,
-  Menu,
-  Modal,
-  Row,
-  Select,
-  Table,
-  Tabs,
-  Typography,
-} from "antd";
-import React, { useEffect, useState } from "react";
-import { Route, Switch, useHistory } from "react-router";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { Card, Form, Row, Col, Input } from "antd";
 interface Props {
   baseUrl: string;
 }
-const { TabPane } = Tabs;
-const { Option } = Select;
-export const ProcessingActivityDetail: React.FC<Props> = ({ baseUrl }) => {
+export const AssetsDetail: React.FC<Props> = (): React.ReactElement => {
   const { push } = useHistory();
   return (
     <>
@@ -33,7 +16,7 @@ export const ProcessingActivityDetail: React.FC<Props> = ({ baseUrl }) => {
         >
           <Row gutter={24}>
             <Col span={8}>
-              <Form.Item name={`Name of Activity`} label={`Name of Activity`}>
+              <Form.Item name={`Name of Asset`} label={`Name of Asset`}>
                 <Input placeholder="placeholder" />
               </Form.Item>
             </Col>
@@ -46,27 +29,24 @@ export const ProcessingActivityDetail: React.FC<Props> = ({ baseUrl }) => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item name={`Note`} label={`Note`}>
+              <Form.Item name={`Hosting Location`} label={`Hosting Location`}>
                 <Input placeholder="placeholder" />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={24}>
-            <Col span={8}>
-              <Form.Item name={`Process Owner`} label={`Process Owner`}>
-                <Input placeholder="placeholder" />
-              </Form.Item>
-            </Col>
             <Col span={8}>
               <Form.Item name={`Type`} label={`Type`}>
                 <Input placeholder="placeholder" />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
-                name={`Categories of  Customer`}
-                label={`Categories of  Customer`}
-              >
+              <Form.Item name={`Note`} label={`Note`}>
+                <Input placeholder="placeholder" />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item name={`IT OWner`} label={`IT OWner`}>
                 <Input placeholder="placeholder" />
               </Form.Item>
             </Col>
@@ -75,19 +55,19 @@ export const ProcessingActivityDetail: React.FC<Props> = ({ baseUrl }) => {
           <Row gutter={24}>
             <Col span={8}>
               <Form.Item
-                name={`Categories of  Data`}
-                label={`Categories of  Data`}
+                name={`Internal or 3rd Party`}
+                label={`Internal or 3rd Party`}
               >
                 <Input placeholder="placeholder" />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item name={`Data Elements`} label={`Data Elements`}>
+              <Form.Item name={`Storage Format`} label={`Storage Format`}>
                 <Input placeholder="placeholder" />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item name={`Process Owner`} label={`Process Owner`}>
+              <Form.Item name={`Hosting Type`} label={`Hosting Type`}>
                 <Input placeholder="placeholder" />
               </Form.Item>
             </Col>
@@ -95,46 +75,22 @@ export const ProcessingActivityDetail: React.FC<Props> = ({ baseUrl }) => {
 
           <Row gutter={24}>
             <Col span={8}>
+              <Form.Item name={`Hosting Provider`} label={`Hosting Provider`}>
+                <Input placeholder="placeholder" />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
               <Form.Item
-                name={`Data Subject Region`}
-                label={`Data Subject Region`}
+                name={`Technical Security Measures`}
+                label={`Technical Security Measures`}
               >
                 <Input placeholder="placeholder" />
               </Form.Item>
             </Col>
             <Col span={8}>
               <Form.Item
-                name={`Data Subject Volume`}
-                label={`Data Subject Volume`}
-              >
-                <Input placeholder="placeholder" />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                name={`Purpose of Processing`}
-                label={`Purpose of Processing`}
-              >
-                <Input placeholder="placeholder" />
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <Row gutter={24}>
-            <Col span={8}>
-              <Form.Item name={`Data Source`} label={`Data Source`}>
-                <Input placeholder="placeholder" />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item name={`Source Asset`} label={`Source Asset`}>
-                <Input placeholder="placeholder" />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                name={`Primary Storage Asset`}
-                label={`Primary Storage Asset`}
+                name={`Volume of Data Subjects`}
+                label={`Volume of Data Subjects`}
               >
                 <Input placeholder="placeholder" />
               </Form.Item>
@@ -143,20 +99,20 @@ export const ProcessingActivityDetail: React.FC<Props> = ({ baseUrl }) => {
 
           <Row gutter={24}>
             <Col span={8}>
+              <Form.Item name={`Data Retention`} label={`Data Retention`}>
+                <Input placeholder="placeholder" />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
               <Form.Item
-                name={`Transfer Method (From Sources)`}
-                label={`Transfer Method (From Sources)`}
+                name={`Processing Activities`}
+                label={`Processing Activities`}
               >
                 <Input placeholder="placeholder" />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item name={`Destinations`} label={`Destinations`}>
-                <Input placeholder="placeholder" />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item name={`Destination Asset`} label={`Destination Asset`}>
+              <Form.Item name={`Data Disposal`} label={`Data Disposal`}>
                 <Input placeholder="placeholder" />
               </Form.Item>
             </Col>
@@ -164,26 +120,12 @@ export const ProcessingActivityDetail: React.FC<Props> = ({ baseUrl }) => {
 
           <Row gutter={24}>
             <Col span={8}>
-              <Form.Item
-                name={`Transfer Method (From Destinations)`}
-                label={`Transfer Method (From Destinations)`}
-              >
+              <Form.Item name={`Status`} label={`Status`}>
                 <Input placeholder="placeholder" />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item
-                name={`Parties who Access/Use data`}
-                label={`Parties who Access/Use data`}
-              >
-                <Input placeholder="placeholder" />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                name={`Locations of Parties (Access/Use)`}
-                label={`Locations of Parties (Access/Use)`}
-              >
+              <Form.Item name={`Risk Level`} label={`Risk Level`}>
                 <Input placeholder="placeholder" />
               </Form.Item>
             </Col>

@@ -4,6 +4,7 @@ import {
   Card,
   Col,
   Dropdown,
+  Form,
   Input,
   Menu,
   Row,
@@ -12,15 +13,19 @@ import {
   Typography,
 } from "antd";
 import React, { useEffect, useState } from "react";
-import { Route, useRouteMatch, Switch, useParams } from 'react-router-dom'
-import {
-
-  useHistory,
-} from "react-router-dom";
+import { Route, useRouteMatch, Switch, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { ProcessingActivityDetail } from "../processingactivity/components/ProcessingActivityDetail";
+import { ProcessingActivityAssessment } from "../processingactivity/components/ProcessingActivityAssessments";
+import { ProcessingActivityRisk } from "../processingactivity/components/ProcessingActivityRisk";
+import { ProcessingActivityAttachment } from "../processingactivity/components/ProcessingActivityAttachment";
 
 const { TabPane } = Tabs;
+interface Props {
+  baseUrl: string;
+}
 
-export const Detail: React.FC<{}> = () => {
+export const Detail: React.FC<Props> = ({ baseUrl }) => {
   const { push } = useHistory();
   const [loading, setLoading] = useState(false);
   // const { Title } = Typography;
@@ -59,7 +64,7 @@ export const Detail: React.FC<{}> = () => {
       dataIndex: "key",
       key: "key",
       fixed: "left",
-      render :((text:any) =>  text+1)
+      render: (text: any) => text + 1,
     },
     {
       title: "Name",
@@ -67,7 +72,9 @@ export const Detail: React.FC<{}> = () => {
       dataIndex: "name",
       key: "name",
       fixed: "left",
-      render : (text: string, record: any, index: number) => <a onClick={() => push(`/ProcessingActivity/${record.key}`)}>{text}</a>
+      render: (text: string, record: any, index: number) => (
+        <a onClick={() => push(`/ProcessingActivity/${record.key}`)}>{text}</a>
+      ),
     },
     {
       title: "Type",
@@ -143,15 +150,22 @@ export const Detail: React.FC<{}> = () => {
   ];
   return (
     <>
-    <Card>
-    <Tabs>
-        <TabPane tab="Details "></TabPane>
-        <TabPane tab="Assessment "></TabPane>
-        <TabPane tab="Risk "></TabPane>
-        <TabPane tab="Attachment "></TabPane>
-    </Tabs> 
-    </Card>
-      
-    </> 
+      <Card>
+        <Tabs defaultActiveKey="1">
+          <TabPane tab="Details " key="1">
+            <ProcessingActivityDetail baseUrl={baseUrl} />
+          </TabPane>
+          <TabPane tab="Assessment " key="2">
+            <ProcessingActivityAssessment baseUrl={baseUrl} />
+          </TabPane>
+          <TabPane tab="Risk " key="3">
+            <ProcessingActivityRisk baseUrl={baseUrl} />
+          </TabPane>
+          <TabPane tab="Attachment " key="4">
+            <ProcessingActivityAttachment baseUrl={baseUrl} />
+          </TabPane>
+        </Tabs>
+      </Card>
+    </>
   );
 };

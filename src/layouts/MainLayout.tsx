@@ -55,6 +55,7 @@ import { Report } from "../screens/report/Report";
 import { Setting } from "../screens/setting/Setting";
 import { Configuration } from "../screens/configuration/Configuration";
 import { ProcessingActivityRoute } from "../screens/processingactivity/ProcessingActivityRoute";
+import { AssetsRoute } from "../screens/assets/AssetsRoute";
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -115,7 +116,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
           showInMenu: true,
           target: "/assets",
           roles: [UserRole.authSuperAdmin],
-          component: <Assets />,
+          component: <AssetsRoute baseUrl={"/assets"} />,
         },
         {
           label: "Vendor",

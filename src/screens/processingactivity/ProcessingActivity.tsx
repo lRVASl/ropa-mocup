@@ -274,7 +274,7 @@ export const ProcessingActivity: React.FC<Props> = ({ baseUrl }) => {
   return (
     <Switch>
       <Route path={`/ProcessingActivity/:id`}>
-        <Detail />
+        <Detail baseUrl={baseUrl} />
       </Route>
       <Route path={`/ProcessingActivity`}>
         <Main />

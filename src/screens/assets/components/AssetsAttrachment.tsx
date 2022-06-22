@@ -1,4 +1,4 @@
-import { DashboardFilled, MenuOutlined } from "@ant-design/icons";
+import React from "react";
 import {
   Button,
   Card,
@@ -12,9 +12,7 @@ import {
   Select,
   Table,
   Tabs,
-  Typography,
 } from "antd";
-import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
 const { TabPane } = Tabs;
@@ -23,17 +21,18 @@ interface Props {
   baseUrl: string;
 }
 const { Option } = Select;
-export const ProcessingActivityAssessment: React.FC<Props> = ({ baseUrl }) => {
+
+export const AssetsAttrachment: React.FC<Props> = ({ baseUrl }) => {
   const columns: any = [
     {
       title: "No",
-      width: 50,
+      width: 30,
       dataIndex: "key",
       key: "key",
       fixed: "left",
     },
     {
-      title: "Assest Lits",
+      title: "Activity List",
       width: 70,
       dataIndex: "name",
       key: "name",
@@ -54,28 +53,16 @@ export const ProcessingActivityAssessment: React.FC<Props> = ({ baseUrl }) => {
       },
     },
     {
-      title: "Assessment",
-      width: 100,
-      dataIndex: "assessment",
+      title: "Note",
+      width: 700,
+      dataIndex: "note",
       key: "assessment",
       fixed: "left",
     },
     {
-      title: "Owner Organize",
-      dataIndex: "ownerorganize",
-      key: "ownerorganize",
-      width: 150,
-    },
-    {
-      title: "Assessor",
-      dataIndex: "assessor",
-      key: "assessor",
-      width: 150,
-    },
-    {
-      title: "Completed Date",
-      dataIndex: "completeddate",
-      key: "completeddate",
+      title: "Created date",
+      dataIndex: "createddate",
+      key: "createddate",
       width: 150,
     },
     {
@@ -84,52 +71,20 @@ export const ProcessingActivityAssessment: React.FC<Props> = ({ baseUrl }) => {
       key: "createby",
       width: 150,
     },
-    {
-      title: "Created date",
-      dataIndex: "createddate",
-      key: "createddate",
-      width: 150,
-    },
   ];
 
   const data = [
     {
       key: 1,
       name: `Microsoft`,
-      assessment: `Assessment 1`,
-      ownerorganize: `HR`,
-      assessor: `Jones Dermot`,
-      completeddate: `2021-04-21 11:59:24`,
+      note: "This document contains responses",
       createddate: `2021-04-21 11:59:24`,
       createby: `Jones Dermot`,
     },
     {
       key: 2,
       name: `IT Centrol`,
-      assessment: `Assessment 2`,
-      ownerorganize: `BSD`,
-      assessor: `Jones Dermot`,
-      completeddate: `2021-04-21 11:59:24`,
-      createddate: `2021-04-21 11:59:24`,
-      createby: `Jones Dermot`,
-    },
-    {
-      key: 3,
-      name: `HR Analytics`,
-      assessment: `Assessment 3`,
-      ownerorganize: `IT`,
-      assessor: `Jones Dermot`,
-      completeddate: `2021-04-21 11:59:24`,
-      createddate: `2021-04-21 11:59:24`,
-      createby: `Jones Dermot`,
-    },
-    {
-      key: 4,
-      name: `Salesforce`,
-      assessment: `Assessment 4`,
-      ownerorganize: `IT`,
-      assessor: `Jones Dermot`,
-      completeddate: `2021-04-21 11:59:24`,
+      note: "This document contains responses",
       createddate: `2021-04-21 11:59:24`,
       createby: `Jones Dermot`,
     },
@@ -140,16 +95,16 @@ export const ProcessingActivityAssessment: React.FC<Props> = ({ baseUrl }) => {
       <Card
         title={
           <Row gutter={10}>
-            <Col span={2} offset={13}></Col>
+            <Col span={2} offset={14}></Col>
             <Col span={6}>
               Filter : <Input placeholder="Search" />
             </Col>
-            <Col span={3} style={{ textAlign: "right" }}>
+            <Col span={2} style={{ textAlign: "right" }}>
               <Button
                 type="primary"
-                // onClick={showModal}
+                //  onClick={showModal}
               >
-                + Add Asset
+                +Add Asset
               </Button>
             </Col>
           </Row>

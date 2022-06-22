@@ -1,4 +1,4 @@
-import { DashboardFilled, MenuOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -11,20 +11,16 @@ import {
   Tabs,
   Typography,
 } from "antd";
-import React, { useEffect, useState } from "react";
-import { Route, useRouteMatch, Switch, useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { MenuOutlined } from "@ant-design/icons";
 
-const { TabPane } = Tabs;
+interface Props {
+  baseUrl: string;
+}
 
-export const Main: React.FC<{}> = () => {
+export const MainAsset: React.FC<Props> = ({ baseUrl }): React.ReactElement => {
   const { push } = useHistory();
-  const [loading, setLoading] = useState(false);
-  // const { Title } = Typography;
 
-  const onChange = (key: string) => {
-    console.log(key);
-  };
   const menu = (
     <Menu
       items={[
@@ -48,25 +44,36 @@ export const Main: React.FC<{}> = () => {
     />
   );
 
-  const { Title } = Typography;
   const columns: any = [
     {
       title: "No",
-      width: "5%",
+      width: 30,
       dataIndex: "key",
       key: "key",
       fixed: "left",
       render: (text: any) => text + 1,
     },
     {
-      title: "Name",
-      width: 100,
+      title: "Assest Lists",
+      width: 70,
       dataIndex: "name",
       key: "name",
       fixed: "left",
       render: (text: string, record: any, index: number) => (
-        <a onClick={() => push(`/ProcessingActivity/${record.key}`)}>{text}</a>
+        <a onClick={() => push(`/Assets/${record.key}`)}>{text}</a>
       ),
+    },
+    {
+      title: "Owner Organize",
+      dataIndex: "createddate",
+      key: "4",
+      width: 100,
+    },
+    {
+      title: "Host Location",
+      dataIndex: "createddate",
+      key: "4",
+      width: 100,
     },
     {
       title: "Type",
@@ -76,35 +83,48 @@ export const Main: React.FC<{}> = () => {
       fixed: "left",
     },
     {
-      title: "Policy Template",
+      title: "Respondent",
       dataIndex: "policytemplate",
       key: "1",
-      width: 150,
+      width: 60,
+    },
+    {
+      title: "Status",
+      dataIndex: "createddate",
+      key: "4",
+      width: 100,
+    },
+
+    {
+      title: "Risk",
+      dataIndex: "createddate",
+      key: "4",
+      width: 100,
     },
     {
       title: "Created by",
       dataIndex: "createdby",
       key: "2",
-      width: 150,
+      width: 100,
     },
     {
       title: "Last Updated",
       dataIndex: "lastUpdated",
       key: "3",
-      width: 150,
+      width: 100,
     },
     {
       title: "Created date",
-      dataIndex: "createddate",
-      key: "4",
-      width: 150,
+      dataIndex: "lastUpdated",
+      key: "3",
+      width: 100,
     },
 
     {
       title: "Action",
       key: "operation",
       fixed: "right",
-      width: 100,
+      width: 40,
       render: () => {
         return (
           <>
@@ -122,7 +142,7 @@ export const Main: React.FC<{}> = () => {
   for (let i = 0; i < 5; i++) {
     data.push({
       key: i,
-      name: `Edrward ${i}`,
+      name: `Joe Biden ${i}`,
       type: `การจัดเก็บ ลบ และทำลายข้อมูล ${i}`,
       policytemplate: `PDPA${i}`,
       createdby: `Jones Dermot ${i}`,
@@ -130,16 +150,7 @@ export const Main: React.FC<{}> = () => {
       createddate: `2021-04-21 11:59:24 ${i}`,
     });
   }
-  const tabList = [
-    {
-      key: "tab1",
-      tab: "tab1",
-    },
-    {
-      key: "tab2",
-      tab: "tab2",
-    },
-  ];
+
   return (
     <>
       <Row
@@ -152,7 +163,7 @@ export const Main: React.FC<{}> = () => {
           style={{ width: "100%", textAlign: "left" }}
           title={
             <Row>
-              <b style={{ fontSize: "24px" }}>Processing Activity</b>
+              <b style={{ fontSize: "24px" }}>Assets</b>
             </Row>
           }
         >
@@ -167,16 +178,16 @@ export const Main: React.FC<{}> = () => {
               style={{ width: "100%", textAlign: "left" }}
               title={
                 <Row gutter={10}>
-                  <Col span={2} offset={13}></Col>
-                  <Col span={5}>
+                  <Col span={2} offset={14}></Col>
+                  <Col span={6}>
                     Filter : <Input placeholder="Search" />
                   </Col>
-                  <Col span={4} style={{ textAlign: "right" }}>
+                  <Col span={2} style={{ textAlign: "right" }}>
                     <Button
                       type="primary"
-                      // onClick={showModal}
+                      //  onClick={showModal}
                     >
-                      + Add Processing Activity
+                      +Add Asset
                     </Button>
                   </Col>
                 </Row>
