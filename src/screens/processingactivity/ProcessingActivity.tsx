@@ -15,8 +15,16 @@ import {
   Typography,
 } from "antd";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import {
+  Route,
+  useRouteMatch,
+  Switch,
+  useParams,
+  useHistory,
+} from "react-router-dom";
 
+import { Main } from "./Main";
+import { Detail } from "./Detail";
 const { TabPane } = Tabs;
 
 interface Props {
@@ -264,113 +272,13 @@ export const ProcessingActivity: React.FC<Props> = ({ baseUrl }) => {
     },
   ];
   return (
-    <>
-      <Row
-        gutter={[
-          { xs: 8, sm: 16 },
-          { xs: 8, sm: 16 },
-        ]}
-      >
-        <Card style={{ width: "100%", textAlign: "left" }}>
-          <b style={{ fontSize: "24px" }}>Processing Activity</b>
-        </Card>
-      </Row>
-
-      <Row
-        gutter={[
-          { xs: 8, sm: 16 },
-          { xs: 8, sm: 16 },
-        ]}
-        style={{ marginTop: "2rem" }}
-      >
-        <Card
-          style={{ width: "100%", textAlign: "left" }}
-          title={
-            <Row>
-              <Col span={1} offset={12}>
-                Filter:
-              </Col>
-              <Col span={6}>
-                <Input placeholder="search" />
-              </Col>
-              <Col span={4} offset={1}>
-                <Button type="primary" onClick={showModal}>
-                  {" "}
-                  + Add Processing Activity
-                </Button>
-              </Col>
-            </Row>
-          }
-        >
-          <Table
-            columns={columns}
-            dataSource={data}
-            scroll={{
-              x: 1500,
-              y: 300,
-            }}
-          />
-        </Card>
-
-        <Modal
-          title="Add Policy"
-          visible={isModalVisible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
-          <Form {...layout} form={form} name="control-hooks">
-            <Form.Item
-              name="name"
-              label="Name"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              name="type"
-              label="Type"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Select
-                placeholder="Select Type"
-                onChange={onGenderChange}
-                allowClear
-              >
-                <Option value="male">male</Option>
-                <Option value="female">female</Option>
-                <Option value="other">other</Option>
-              </Select>
-            </Form.Item>
-            <Form.Item
-              name="policytemplate"
-              label="Policy Template"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Select
-                placeholder="Select Template"
-                onChange={onGenderChange}
-                allowClear
-              >
-                <Option value="male">male</Option>
-                <Option value="female">female</Option>
-                <Option value="other">other</Option>
-              </Select>
-            </Form.Item>
-          </Form>
-        </Modal>
-      </Row>
-    </>
+    <Switch>
+      <Route path={`/ProcessingActivity/:id`}>
+        <Detail />
+      </Route>
+      <Route path={`/ProcessingActivity`}>
+        <Main />
+      </Route>
+    </Switch>
   );
 };
