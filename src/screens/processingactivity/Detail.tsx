@@ -1,4 +1,8 @@
-import { DashboardFilled, MenuOutlined } from "@ant-design/icons";
+import {
+  DashboardFilled,
+  MenuOutlined,
+  LeftCircleOutlined,
+} from "@ant-design/icons";
 import {
   Button,
   Card,
@@ -29,6 +33,10 @@ export const Detail: React.FC<Props> = ({ baseUrl }) => {
   const { push } = useHistory();
   const [loading, setLoading] = useState(false);
   // const { Title } = Typography;
+
+  const goBack = () => {
+    window.history.back();
+  };
 
   const onChange = (key: string) => {
     console.log(key);
@@ -150,22 +158,51 @@ export const Detail: React.FC<Props> = ({ baseUrl }) => {
   ];
   return (
     <>
-      <Card>
-        <Tabs defaultActiveKey="1">
-          <TabPane tab="Details " key="1">
-            <ProcessingActivityDetail baseUrl={baseUrl} />
-          </TabPane>
-          <TabPane tab="Assessment " key="2">
-            <ProcessingActivityAssessment baseUrl={baseUrl} />
-          </TabPane>
-          <TabPane tab="Risk " key="3">
-            <ProcessingActivityRisk baseUrl={baseUrl} />
-          </TabPane>
-          <TabPane tab="Attachment " key="4">
-            <ProcessingActivityAttachment baseUrl={baseUrl} />
-          </TabPane>
-        </Tabs>
-      </Card>
+      <Row
+        gutter={[
+          { xs: 8, sm: 16 },
+          { xs: 8, sm: 16 },
+        ]}
+      >
+        <Card style={{ width: "100%", textAlign: "left" }}>
+          <Row gutter={1}>
+            <Col>
+              <Button
+                style={{ fontSize: "24px", border: "none", color: "#40A9FF" }}
+              >
+                <LeftCircleOutlined onClick={goBack} />
+              </Button>
+            </Col>
+            <Col>
+              <b style={{ fontSize: "24px" }}>{"Processing Activity"}</b>
+            </Col>
+          </Row>
+        </Card>
+      </Row>
+      <Row
+        gutter={[
+          { xs: 8, sm: 16 },
+          { xs: 8, sm: 16 },
+        ]}
+        style={{ marginTop: "2rem" }}
+      >
+        <Card style={{ width: "100%" }}>
+          <Tabs defaultActiveKey="1">
+            <TabPane tab="Details " key="1">
+              <ProcessingActivityDetail baseUrl={baseUrl} />
+            </TabPane>
+            <TabPane tab="Assessment " key="2">
+              <ProcessingActivityAssessment baseUrl={baseUrl} />
+            </TabPane>
+            <TabPane tab="Risk " key="3">
+              <ProcessingActivityRisk baseUrl={baseUrl} />
+            </TabPane>
+            <TabPane tab="Attachment " key="4">
+              <ProcessingActivityAttachment baseUrl={baseUrl} />
+            </TabPane>
+          </Tabs>
+        </Card>
+      </Row>
     </>
   );
 };

@@ -1,5 +1,16 @@
-import React from "react";
-import { Button, Card, Row, Col, Table, Input } from "antd";
+import React, { useState } from "react";
+import {
+  Button,
+  Card,
+  Row,
+  Col,
+  Table,
+  Input,
+  Modal,
+  Form,
+  DatePicker,
+} from "antd";
+import FormItem from "antd/lib/form/FormItem";
 
 interface Props {
   baseUrl: string;
@@ -8,7 +19,7 @@ interface Props {
 const columns: any = [
   {
     title: "No",
-    width: 30,
+    width: 50,
     dataIndex: "key",
     key: "key",
     fixed: "left",
@@ -91,20 +102,31 @@ const data = [
 ];
 
 export const AssetsAssesment: React.FC<Props> = (): React.ReactElement => {
+  //  set modal
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const ModalAsset = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = (e: any) => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <>
       <Card
         title={
           <Row gutter={10}>
-            <Col span={2} offset={14}></Col>
-            <Col span={6}>
+            <Col span={6} offset={15}>
               Filter : <Input placeholder="Search" />
             </Col>
-            <Col span={2} style={{ textAlign: "right" }}>
-              <Button
-                type="primary"
-                // onClick={showModal}
-              >
+            <Col span={3} style={{ textAlign: "right" }}>
+              <Button type="primary" onClick={ModalAsset}>
                 +Add Asset
               </Button>
             </Col>
@@ -120,6 +142,42 @@ export const AssetsAssesment: React.FC<Props> = (): React.ReactElement => {
           }}
         />
       </Card>
+      <Modal
+        title="Add Assesment"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        width="700px"
+        footer={[]}
+      >
+        <Form labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
+          <Form.Item label="No">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Name of Activity">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Owner Organize">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Assessor">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Completed Date">
+            <DatePicker style={{ width: "100%" }} />
+          </Form.Item>
+          <Form.Item label="Created By">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Created date">
+            <DatePicker style={{ width: "100%" }} />
+          </Form.Item>
+          <div style={{ textAlign: "right" }}>
+            <Button type="primary" onClick={handleOk}>
+              Add
+            </Button>
+          </div>
+        </Form>
+      </Modal>
     </>
   );
 };

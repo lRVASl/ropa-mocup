@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, Card, Row, Col, Table, Input } from "antd";
+import React, { useState } from "react";
+import { Button, Card, Row, Col, Table, Input, Modal } from "antd";
 
 interface Props {
   baseUrl: string;
@@ -8,7 +8,7 @@ interface Props {
 const columns: any = [
   {
     title: "No",
-    width: 30,
+    width: 50,
     dataIndex: "key",
     key: "key",
     fixed: "left",
@@ -91,20 +91,35 @@ const data = [
 ];
 
 export const AssetsActivity: React.FC<Props> = (): React.ReactElement => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   return (
     <>
+      <Modal
+        title={"Activity"}
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        onOk={handleOk}
+      ></Modal>
       <Card
         title={
           <Row gutter={10}>
-            <Col span={2} offset={14}></Col>
-            <Col span={6}>
+            <Col span={6} offset={15}>
               Filter : <Input placeholder="Search" />
             </Col>
-            <Col span={2} style={{ textAlign: "right" }}>
-              <Button
-                type="primary"
-                // onClick={showModal}
-              >
+            <Col span={3} style={{ textAlign: "right" }}>
+              <Button type="primary" onClick={showModal}>
                 +Add Asset
               </Button>
             </Col>

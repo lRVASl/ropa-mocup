@@ -1,4 +1,4 @@
-import { Card, Row, Col, } from "antd";
+import { Card, Row, Col } from "antd";
 import {
   InfoCircleOutlined,
   TagsOutlined,
@@ -39,7 +39,7 @@ export const StatCard = () => {
             </Col>
             <Col span={16} style={{ textAlign: "left" }}>
               <div style={{ color: "rgba(0, 0, 0, 0.45)" }}>
-              Total Assessment
+                Total Assessment
               </div>
               <div style={{ fontWeight: "bold", fontSize: 26 }}>111</div>
             </Col>
@@ -64,9 +64,7 @@ export const StatCard = () => {
               />
             </Col>
             <Col span={16} style={{ textAlign: "left" }}>
-              <div style={{ color: "rgba(0, 0, 0, 0.45)" }}>
-              Total Assets
-              </div>
+              <div style={{ color: "rgba(0, 0, 0, 0.45)" }}>Total Assets</div>
               <div style={{ fontWeight: "bold", fontSize: 26 }}>45 </div>
             </Col>
             <Col span={3} style={{ textAlign: "right" }}>
@@ -75,8 +73,6 @@ export const StatCard = () => {
           </Row>
         </Card>
       </Col>
-      
-      
     </>
   );
 };

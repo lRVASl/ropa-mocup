@@ -7,8 +7,6 @@ import { GraphLine } from "./components/GraphLine";
 import { Filter } from "./components/Filter";
 
 export const OverviewDashboard: React.FC<{}> = () => {
-  const { Title } = Typography;
-
   return (
     <>
       <Row
@@ -18,13 +16,13 @@ export const OverviewDashboard: React.FC<{}> = () => {
         ]}
       >
         <Card style={{ width: "100%", textAlign: "left" }}>
-          <Space direction="vertical" size={"small"}>
+          {/* <Space direction="vertical" size={"small"}>
             <Breadcrumb>
               <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
               <Breadcrumb.Item>DASHBOARD</Breadcrumb.Item>
-            </Breadcrumb>
-            <Title> DASHBOARD</Title>
-          </Space>
+            </Breadcrumb> */}
+          <b style={{ fontSize: "24px" }}>DASHBOARD</b>
+          {/* </Space> */}
         </Card>
       </Row>
 
@@ -33,7 +31,7 @@ export const OverviewDashboard: React.FC<{}> = () => {
           { xs: 8, sm: 16 },
           { xs: 8, sm: 16 },
         ]}
-        style={{ marginTop: "1rem" }}
+        style={{ marginTop: "2rem" }}
       >
         <Filter />
       </Row>

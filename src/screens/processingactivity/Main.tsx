@@ -4,27 +4,36 @@ import {
   Card,
   Col,
   Dropdown,
+  Form,
   Input,
   Menu,
+  Modal,
   Row,
   Table,
-  Tabs,
-  Typography,
 } from "antd";
 import React, { useEffect, useState } from "react";
-import { Route, useRouteMatch, Switch, useParams } from "react-router-dom";
+// import { Route, useRouteMatch, Switch, useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
-const { TabPane } = Tabs;
+// const { TabPane } = Tabs;
 
 export const Main: React.FC<{}> = () => {
   const { push } = useHistory();
   const [loading, setLoading] = useState(false);
-  // const { Title } = Typography;
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const onChange = (key: string) => {
-    console.log(key);
+  const showModal = () => {
+    setIsModalVisible(true);
   };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleSubmit = () => {
+    setIsModalVisible(false);
+  };
+
   const menu = (
     <Menu
       items={[
@@ -47,12 +56,10 @@ export const Main: React.FC<{}> = () => {
       ]}
     />
   );
-
-  const { Title } = Typography;
   const columns: any = [
     {
       title: "No",
-      width: "5%",
+      width: 30,
       dataIndex: "key",
       key: "key",
       fixed: "left",
@@ -70,7 +77,7 @@ export const Main: React.FC<{}> = () => {
     },
     {
       title: "Type",
-      width: 100,
+      width: 200,
       dataIndex: "type",
       key: "type",
       fixed: "left",
@@ -79,32 +86,32 @@ export const Main: React.FC<{}> = () => {
       title: "Policy Template",
       dataIndex: "policytemplate",
       key: "1",
-      width: 150,
+      width: 70,
     },
     {
       title: "Created by",
       dataIndex: "createdby",
       key: "2",
-      width: 150,
+      width: 100,
     },
     {
       title: "Last Updated",
       dataIndex: "lastUpdated",
       key: "3",
-      width: 150,
+      width: 100,
     },
     {
       title: "Created date",
       dataIndex: "createddate",
       key: "4",
-      width: 150,
+      width: 100,
     },
 
     {
       title: "Action",
       key: "operation",
       fixed: "right",
-      width: 100,
+      width: 50,
       render: () => {
         return (
           <>
@@ -130,16 +137,7 @@ export const Main: React.FC<{}> = () => {
       createddate: `2021-04-21 11:59:24 ${i}`,
     });
   }
-  const tabList = [
-    {
-      key: "tab1",
-      tab: "tab1",
-    },
-    {
-      key: "tab2",
-      tab: "tab2",
-    },
-  ];
+
   return (
     <>
       <Row
@@ -148,52 +146,77 @@ export const Main: React.FC<{}> = () => {
           { xs: 8, sm: 16 },
         ]}
       >
+        <Card style={{ width: "100%", textAlign: "left" }}>
+          <b style={{ fontSize: "24px" }}>Processing Activity</b>
+        </Card>
+      </Row>
+      <Row
+        gutter={[
+          { xs: 8, sm: 16 },
+          { xs: 8, sm: 16 },
+        ]}
+        style={{ marginTop: "2rem" }}
+      >
         <Card
           style={{ width: "100%", textAlign: "left" }}
           title={
-            <Row>
-              <b style={{ fontSize: "24px" }}>Processing Activity</b>
+            <Row gutter={10}>
+              <Col span={5} offset={15}>
+                Filter : <Input placeholder="Search" />
+              </Col>
+              <Col span={4} style={{ textAlign: "right" }}>
+                <Button type="primary" onClick={showModal}>
+                  {"Add Processing Activity"}
+                </Button>
+              </Col>
             </Row>
           }
         >
-          <Row
-            gutter={[
-              { xs: 8, sm: 16 },
-              { xs: 8, sm: 16 },
-            ]}
-            style={{ marginTop: "2rem" }}
-          >
-            <Card
-              style={{ width: "100%", textAlign: "left" }}
-              title={
-                <Row gutter={10}>
-                  <Col span={2} offset={13}></Col>
-                  <Col span={5}>
-                    Filter : <Input placeholder="Search" />
-                  </Col>
-                  <Col span={4} style={{ textAlign: "right" }}>
-                    <Button
-                      type="primary"
-                      // onClick={showModal}
-                    >
-                      + Add Processing Activity
-                    </Button>
-                  </Col>
-                </Row>
-              }
-            >
-              <Table
-                columns={columns}
-                dataSource={data}
-                scroll={{
-                  x: 1500,
-                  y: 300,
-                }}
-              />
-            </Card>
-          </Row>
+          <Table
+            columns={columns}
+            dataSource={data}
+            scroll={{
+              x: 1500,
+              y: 300,
+            }}
+          />
         </Card>
       </Row>
+      <Modal
+        title={"Add processing activity"}
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={[]}
+      >
+        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 18 }}>
+          <Form.Item label={"No"}>
+            <Input />
+          </Form.Item>
+          <Form.Item label={"Name"}>
+            <Input />
+          </Form.Item>
+          <Form.Item label={"Type"}>
+            <Input />
+          </Form.Item>
+          <Form.Item label={"Policy Template"}>
+            <Input />
+          </Form.Item>
+          <Form.Item label={"Created By"}>
+            <Input />
+          </Form.Item>
+          <Form.Item label={"Last Updated"}>
+            <Input />
+          </Form.Item>
+          <Form.Item label={"Created date"}>
+            <Input />
+          </Form.Item>
+          <div style={{ textAlign: "right" }}>
+            <Button onClick={handleSubmit} type="primary">
+              Add
+            </Button>
+          </div>
+        </Form>
+      </Modal>
     </>
   );
 };

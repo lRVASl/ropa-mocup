@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Card,
   Col,
+  DatePicker,
   Dropdown,
   Form,
   Input,
@@ -23,29 +24,45 @@ interface Props {
 const { Option } = Select;
 
 export const AssetsAttrachment: React.FC<Props> = ({ baseUrl }) => {
+  //  set modal
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // set state add
+  const [getnumbervalue, setNumbervalue] = useState("");
+  const [getactivitylist, setActivitylist] = useState("");
+  const [getnote, setNote] = useState("");
+  const [getcreateddate, setCreateddate] = useState("");
+
+  const ShowModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = (e: any) => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   const columns: any = [
     {
       title: "No",
-      width: 30,
+      width: 50,
       dataIndex: "key",
       key: "key",
       fixed: "left",
     },
     {
       title: "Activity List",
-      width: 70,
+      width: 100,
       dataIndex: "name",
       key: "name",
       fixed: "left",
       render: (text: any, data: any) => {
         return (
           <>
-            <Button
-              type="link"
-              onClick={() => {
-                // push(`processingactivity/detail/${data.key}`);
-              }}
-            >
+            <Button type="link" onClick={() => {}}>
               {text}
             </Button>
           </>
@@ -95,15 +112,11 @@ export const AssetsAttrachment: React.FC<Props> = ({ baseUrl }) => {
       <Card
         title={
           <Row gutter={10}>
-            <Col span={2} offset={14}></Col>
-            <Col span={6}>
+            <Col span={5} offset={16}>
               Filter : <Input placeholder="Search" />
             </Col>
-            <Col span={2} style={{ textAlign: "right" }}>
-              <Button
-                type="primary"
-                //  onClick={showModal}
-              >
+            <Col span={3} style={{ textAlign: "right" }}>
+              <Button type="primary" onClick={ShowModal}>
                 +Add Asset
               </Button>
             </Col>
@@ -119,6 +132,52 @@ export const AssetsAttrachment: React.FC<Props> = ({ baseUrl }) => {
           }}
         />
       </Card>
+
+      <Modal
+        title="Add Attrachment"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        width="700px"
+        footer={[]}
+      >
+        <Form
+          labelCol={{ span: 4 }}
+          wrapperCol={{ span: 20 }}
+          onFinish={handleOk}
+          style={{ textAlign: "right" }}
+        >
+          <Form.Item label={"No."} name="key">
+            <Input
+              placeholder="Please input text"
+              onChange={(e) => setNumbervalue(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item label={"Activity List"} name="activity-name">
+            <Input
+              placeholder="Please input text"
+              onChange={(e) => setActivitylist(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item name="note" label={"Note"}>
+            <Input
+              placeholder="Please input text "
+              onChange={(e) => setNote(e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item name="created-date" label={"Created date"}>
+            <DatePicker
+              style={{ width: "100%" }}
+              onChange={(e: any) => setCreateddate(e)}
+            />
+          </Form.Item>
+          <Button htmlType="submit" type="primary">
+            Submit
+          </Button>
+        </Form>
+      </Modal>
     </>
   );
 };

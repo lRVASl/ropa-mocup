@@ -1,5 +1,16 @@
-import { Card, Col, Row, Select, Input, Button, Table } from "antd";
-import React from "react";
+import {
+  Card,
+  Col,
+  Row,
+  Select,
+  Input,
+  Button,
+  Table,
+  Modal,
+  Form,
+  DatePicker,
+} from "antd";
+import React, { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
@@ -106,8 +117,58 @@ export const ProcessingActivityAttachment: React.FC<Props> = ({ baseUrl }) => {
   const onSearch = (value: any) => {
     console.log(value);
   };
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <>
+      <Modal
+        title={"Add attachment"}
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={[]}
+      >
+        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 18 }}>
+          <Form.Item label="No">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Name of Activity">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Owner Organize">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Assessor">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Completed Date">
+            <DatePicker style={{ width: "100%" }} />
+          </Form.Item>
+          <Form.Item label="Created By">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Created date">
+            <DatePicker style={{ width: "100%" }} />
+          </Form.Item>
+          <div style={{ textAlign: "right" }}>
+            <Button type="primary" onClick={handleOk}>
+              Add
+            </Button>
+          </div>
+        </Form>
+      </Modal>
       <Card>
         <Row gutter={10}>
           <Col span={1} offset={17}>
@@ -127,7 +188,7 @@ export const ProcessingActivityAttachment: React.FC<Props> = ({ baseUrl }) => {
             />
           </Col>
           <Col span={2}>
-            <Button type="primary">
+            <Button type="primary" onClick={showModal}>
               <PlusOutlined /> {"Add Asses"}
             </Button>
           </Col>

@@ -8,7 +8,7 @@ interface Props {
 const columns: any = [
   {
     title: "No",
-    width: 40,
+    width: 50,
     dataIndex: "key",
     key: "key",
     fixed: "left",
@@ -36,7 +36,7 @@ const columns: any = [
   },
   {
     title: "Owner Organize",
-    width: 100,
+    width: 120,
     dataIndex: "ownerorganize",
     key: "ownerorganize",
     fixed: "left",
@@ -51,7 +51,7 @@ const columns: any = [
     title: "Type",
     dataIndex: "type",
     key: "type",
-    width: 100,
+    width: 80,
   },
   {
     title: "IT Owner",
@@ -69,7 +69,7 @@ const columns: any = [
     title: "Risk",
     dataIndex: "risk",
     key: "risk",
-    width: 100,
+    width: 80,
   },
   {
     title: "Created by",

@@ -25,7 +25,7 @@ export const Location: React.FC<{}> = () => {
         style={{ marginTop: "2rem" }}
       >
         <Card>
-          <Image width={1600} src={images} />
+          <Image width={"100%"} src={images} />
         </Card>
       </Row>
     </>

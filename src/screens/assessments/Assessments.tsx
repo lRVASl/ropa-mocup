@@ -208,16 +208,15 @@ export const Assessments: React.FC<{}> = () => {
         <Card
           style={{ width: "100%", textAlign: "left" }}
           title={
-            <Row>
-              <Col span={1} offset={12}>
+            <Row gutter={20}>
+              <Col span={1} offset={13}>
                 Filter:
               </Col>
-              <Col span={6}>
+              <Col span={7}>
                 <Input placeholder="search" />
               </Col>
-              <Col span={4} offset={1}>
+              <Col span={3} style={{ textAlign: "right" }}>
                 <Button type="primary" onClick={showModal}>
-                  {" "}
                   + Add Assessment
                 </Button>
               </Col>

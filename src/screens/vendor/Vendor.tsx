@@ -41,7 +41,7 @@ export const Vendor: React.FC<{}> = () => {
   const columns: any = [
     {
       title: "No",
-      width: "5%",
+      width: 40,
       dataIndex: "key",
       key: "key",
       fixed: "left",
@@ -55,41 +55,40 @@ export const Vendor: React.FC<{}> = () => {
     },
     {
       title: "Type",
-      width: 100,
+      width: 200,
       dataIndex: "type",
       key: "type",
-      fixed: "left",
     },
     {
       title: "Policy Template",
       dataIndex: "policytemplate",
       key: "1",
-      width: 150,
+      width: 70,
     },
     {
       title: "Created by",
       dataIndex: "createdby",
       key: "2",
-      width: 150,
+      width: 80,
     },
     {
       title: "Last Updated",
       dataIndex: "lastUpdated",
       key: "3",
-      width: 150,
+      width: 100,
     },
     {
       title: "Created date",
       dataIndex: "createddate",
       key: "4",
-      width: 150,
+      width: 100,
     },
 
     {
       title: "Action",
       key: "operation",
       fixed: "right",
-      width: 100,
+      width: 50,
       render: () => {
         return (
           <>
@@ -134,39 +133,33 @@ export const Vendor: React.FC<{}> = () => {
         ]}
         style={{ marginTop: "2rem" }}
       >
-        <Row
-          gutter={[
-            { xs: 8, sm: 16 },
-            { xs: 8, sm: 16 },
-          ]}
-          style={{ marginTop: "2rem" }}
+        <Card
+          style={{ width: "100%", textAlign: "left" }}
+          title={
+            <Row gutter={20}>
+              <Col span={1} offset={15}>
+                {"Filter:"}
+              </Col>
+              <Col span={6}>
+                <Input placeholder="search" />
+              </Col>
+              <Col span={2}>
+                <Button style={{ textAlign: "center" }} type="primary">
+                  {"Add Vender"}
+                </Button>
+              </Col>
+            </Row>
+          }
         >
-          <Card
-            style={{ width: "100%", textAlign: "left" }}
-            title={
-              <Row>
-                <Col span={1} offset={12}>
-                  Filter:
-                </Col>
-                <Col span={6}>
-                  <Input placeholder="search" />
-                </Col>
-                <Col span={4} offset={1}>
-                  <Button type="primary"> + Add Policy</Button>
-                </Col>
-              </Row>
-            }
-          >
-            <Table
-              columns={columns}
-              dataSource={data}
-              scroll={{
-                x: 1500,
-                y: 300,
-              }}
-            />
-          </Card>
-        </Row>
+          <Table
+            columns={columns}
+            dataSource={data}
+            scroll={{
+              x: 1500,
+              y: 300,
+            }}
+          />
+        </Card>
       </Row>
     </>
   );

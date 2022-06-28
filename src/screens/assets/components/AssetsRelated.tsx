@@ -20,7 +20,7 @@ interface Props {
 const columns: any = [
   {
     title: "No",
-    width: 30,
+    width: 50,
     dataIndex: "key",
     key: "key",
     fixed: "left",
@@ -130,7 +130,7 @@ export const AssetsRelated: React.FC<Props> = (): React.ReactElement => {
           </Button>,
         ]}
       >
-        <Form>
+        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 18 }}>
           <Form.Item label="Assess Template:">
             <Select defaultValue={"Select Type"}>
               <Option value="1">1</Option>
@@ -151,11 +151,10 @@ export const AssetsRelated: React.FC<Props> = (): React.ReactElement => {
       <Card
         title={
           <Row gutter={10}>
-            <Col span={2} offset={14}></Col>
-            <Col span={6}>
+            <Col span={6} offset={15}>
               Filter : <Input placeholder="Search" />
             </Col>
-            <Col span={2} style={{ textAlign: "right" }}>
+            <Col span={3} style={{ textAlign: "right" }}>
               <Button type="primary" onClick={showModal}>
                 +Add Asset
               </Button>
