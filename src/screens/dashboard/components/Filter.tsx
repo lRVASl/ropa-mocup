@@ -26,12 +26,12 @@ export const Filter = () => {
           <Col span={12} style={{ textAlign: "right", alignSelf: "center" }}>
             <Select
               mode="tags"
-              defaultValue={["ขอข้อมูล", "ขอเข้าถึงข้อมูล"]}
               allowClear
-              style={{ width: 300 }}
+              style={{ width: 300 , display:'none'}}
+              
             >
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
+              <Option value="jack">ข้อมูลที่1</Option>
+              <Option value="lucy">ข้อมูลที่2</Option>
             </Select>
           </Col>
         </Row>

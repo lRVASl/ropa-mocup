@@ -1,19 +1,5 @@
 import { DashboardFilled, MenuOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Card,
-  Col,
-  Dropdown,
-  Form,
-  Input,
-  Menu,
-  Modal,
-  Row,
-  Select,
-  Table,
-  Tabs,
-  Typography,
-} from "antd";
+import { Button, Card, Col, Dropdown, Form, Input, Menu, Modal, Row, Select, Table, Tabs, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router";
 import { ProcessingActivityAssessment } from "./ProcessingActivityAssessments";
@@ -24,9 +10,6 @@ interface Props {
 const { TabPane } = Tabs;
 export const ProcessingActivityRouteIn: React.FC<Props> = ({ baseUrl }) => {
   const { push } = useHistory();
-  //   useEffect(() => {
-  //     onChange("1");
-  //   }, []);
   const onChange = (key: string) => {};
   return (
     <>

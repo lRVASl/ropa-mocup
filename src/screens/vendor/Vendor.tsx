@@ -123,7 +123,7 @@ export const Vendor: React.FC<{}> = () => {
         ]}
       >
         <Card style={{ width: "100%", textAlign: "left" }}>
-          <b style={{ fontSize: "24px" }}>Inventory</b>
+          <b style={{ fontSize: "24px" }}>Vendor</b>
         </Card>
       </Row>
       <Row
@@ -137,7 +137,7 @@ export const Vendor: React.FC<{}> = () => {
           style={{ width: "100%", textAlign: "left" }}
           title={
             <Row gutter={20}>
-              <Col span={1} offset={15}>
+              <Col span={1} offset={14}>
                 {"Filter:"}
               </Col>
               <Col span={6}>

@@ -10,7 +10,7 @@ export interface MenuItem {
   exact?: boolean;
   showInMenu?: boolean;
   subMenu?: MenuItem[];
-  roles: UserRole[];
+  roles?: UserRole[];
   component: React.ReactElement | (() => React.ReactElement);
 }
 

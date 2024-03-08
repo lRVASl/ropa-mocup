@@ -14,7 +14,7 @@ export const Location: React.FC<{}> = () => {
         ]}
       >
         <Card style={{ width: "100%", textAlign: "left" }}>
-          <b style={{ fontSize: "24px" }}>Location</b>
+          <b style={{ fontSize: "24px" }}>Location / Activity</b>
         </Card>
       </Row>
       <Row

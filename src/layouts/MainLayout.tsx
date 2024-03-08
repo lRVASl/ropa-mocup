@@ -1,19 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Avatar,
-  Button,
-  Card,
-  Col,
-  Dropdown,
-  Form,
-  Image,
-  Layout,
-  Menu,
-  Modal,
-  Result,
-  Row,
-  Space,
-} from "antd";
+import { Avatar, Button, Card, Col, Dropdown, Form, Image, Layout, Menu, Modal, Result, Row, Space } from "antd";
 import { BrowserRouter as Router } from "react-router-dom";
 import {
   BarChartOutlined,
@@ -105,9 +91,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
           showInMenu: true,
           target: "/processingactivity",
           roles: [UserRole.authSuperAdmin],
-          component: (
-            <ProcessingActivityRoute baseUrl={"/processingactivity"} />
-          ),
+          component: <ProcessingActivityRoute baseUrl={"/processingactivity"} />,
         },
         {
           label: "Assets",
@@ -205,11 +189,9 @@ export const MainLayout: React.FC = (): React.ReactElement => {
     }
   };
 
-  const [isModalVisibleResetPassword, setIsModalVisibleResetPassword] =
-    useState(false);
+  const [isModalVisibleResetPassword, setIsModalVisibleResetPassword] = useState(false);
   const [isModalVisibleProfile, setIsModalVisibleProfile] = useState(false);
-  const [isModalVisibleOverviewSetting, setIsModalVisibleOverviewSetting] =
-    useState(false);
+  const [isModalVisibleOverviewSetting, setIsModalVisibleOverviewSetting] = useState(false);
 
   const showModalResetPass = () => {
     setIsModalVisibleResetPassword(true);
@@ -272,26 +254,16 @@ export const MainLayout: React.FC = (): React.ReactElement => {
     />
   ) : (
     <>
-      <OverviewSettingModal
-        isVisible={isModalVisibleOverviewSetting}
-        handleCancel={() => setIsModalVisibleOverviewSetting(false)}
-      />
+      <OverviewSettingModal isVisible={isModalVisibleOverviewSetting} handleCancel={() => setIsModalVisibleOverviewSetting(false)} />
       <Router>
-        <Modal
-          title="Profile"
-          visible={isModalVisibleProfile}
-          onOk={handleOkProfile}
-          onCancel={handleCancelProfile}
-        >
+        <Modal title="Profile" visible={isModalVisibleProfile} onOk={handleOkProfile} onCancel={handleCancelProfile}>
           <Form name="profile" layout="inline">
             <Row justify="space-between">
               <Col style={{ marginRight: 150 }}>
                 <Form.Item label="Full Name">{alias}</Form.Item>
               </Col>
               <Col style={{ marginRight: 150 }}>
-                <Form.Item label="Employee ID">
-                  {reader.getEmployeeId()}
-                </Form.Item>
+                <Form.Item label="Employee ID">{reader.getEmployeeId()}</Form.Item>
               </Col>
               <Col style={{ wordBreak: "break-word" }}>
                 <Form.Item label="Group">{reader.getEmployeeGroup()}</Form.Item>
@@ -299,22 +271,11 @@ export const MainLayout: React.FC = (): React.ReactElement => {
             </Row>
           </Form>
         </Modal>
-        <Modal
-          title="Reset password"
-          visible={isModalVisibleResetPassword}
-          onOk={handleOkResetPassword}
-          onCancel={handleCancelResetPassword}
-        >
+        <Modal title="Reset password" visible={isModalVisibleResetPassword} onOk={handleOkResetPassword} onCancel={handleCancelResetPassword}>
           <p>Reset your password</p>
         </Modal>
         <Layout>
-          <Sider
-            className="site-layout-background"
-            trigger={null}
-            collapsible
-            collapsed={collapse}
-            style={{ backgroundColor: "white" }}
-          >
+          <Sider className="site-layout-background" trigger={null} collapsible collapsed={collapse} style={{ backgroundColor: "white" }}>
             <Row className="logo">
               <Col style={{ textAlign: "center" }}>
                 <Image preview={false} src={logo} />
@@ -329,11 +290,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
                   icon,
                   path: target,
                   exact,
-                  subMenu:
-                    subMenu &&
-                    subMenu
-                      .filter((menu) => menu.showInMenu)
-                      .map((menu: MenuItem) => createMainMenuItem(menu)),
+                  subMenu: subMenu && subMenu.filter((menu) => menu.showInMenu).map((menu: MenuItem) => createMainMenuItem(menu)),
                 }))}
             />
           </Sider>
@@ -348,13 +305,10 @@ export const MainLayout: React.FC = (): React.ReactElement => {
             >
               <Row>
                 <Col>
-                  {React.createElement(
-                    collapse ? MenuUnfoldOutlined : MenuFoldOutlined,
-                    {
-                      className: "trigger",
-                      onClick: toggleCollapsed,
-                    }
-                  )}
+                  {React.createElement(collapse ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                    className: "trigger",
+                    onClick: toggleCollapsed,
+                  })}
                 </Col>
                 <Col
                   style={{
@@ -372,10 +326,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
                 <Col style={{ marginRight: 20 }}>
                   <Dropdown overlay={menu}>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                    <a
-                      className="ant-dropdown-link"
-                      onClick={(e) => e.preventDefault()}
-                    >
+                    <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
                       <CaretDownOutlined />
                     </a>
                   </Dropdown>
@@ -395,7 +346,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
               <MainRoute menuItems={[...menuItems]} />
             </Content>
             <Footer style={{ textAlign: "center", color: "rgba(0,0,0,.45)" }}>
-              <p>D-PDPA | Consent Management Version: {appConfig.appVersion}</p>
+              <p>D-PDPA | ROPA Version: {appConfig.appVersion}</p>
               <p>Copyright ©2021 OSD</p>
             </Footer>
           </Layout>
