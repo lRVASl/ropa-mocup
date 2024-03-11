@@ -42,13 +42,34 @@ import { Setting } from "../screens/setting/Setting";
 import { Configuration } from "../screens/configuration/Configuration";
 import { ProcessingActivityRoute } from "../screens/processingactivity/ProcessingActivityRoute";
 import { AssetsRoute } from "../screens/assets/AssetsRoute";
+import { useId24 } from "../drivers/id24/Id24-provider";
 
 const { Header, Sider, Content, Footer } = Layout;
 
 export const MainLayout: React.FC = (): React.ReactElement => {
+  const { tokenAccess, login } = useId24();
   const appConfig = loadAppConfig();
-  const { auth24 } = useAuth24();
-  const reader = createAuth24TokenReader(auth24);
+  const [roles, setRoles] = useState<any>([]);
+
+  const getUserAccess = async () => {
+    const datacon = [] as string[];
+    if (tokenAccess)
+      tokenAccess.userAccess.map((groupId) => {
+        groupId.roles.forEach(function (value, i) {
+          datacon.push(value);
+        });
+      });
+    const uniqueNames = datacon.filter((val: any, id: any, array: any) => {
+      return array.indexOf(val) == id;
+    });
+    setRoles(uniqueNames);
+  };
+
+  const hasRole = (userRoles: UserRole[]): boolean => {
+    const inputRoles = new Set(userRoles);
+    const union = new Set(roles.filter((role: any) => inputRoles.has(role)));
+    return union.size > 0;
+  };
 
   const menuItems: MenuItem[] = [
     {
@@ -57,7 +78,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/dashboard",
       showInMenu: true,
       target: "/dashboard",
-      roles: [UserRole.authSuperAdmin],
+      // roles: [UserRole.authSuperAdmin],
       component: <OverviewDashboard />,
     },
     {
@@ -66,7 +87,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/policymanagement",
       showInMenu: true,
       target: "/policymanagement",
-      roles: [UserRole.authSuperAdmin],
+      // roles: [UserRole.authSuperAdmin],
       component: <PolicyManagement baseUrl={"/policymanagement"} />,
     },
     {
@@ -75,7 +96,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/assessments",
       showInMenu: true,
       target: "/assessments",
-      roles: [UserRole.authSuperAdmin],
+      // roles: [UserRole.authSuperAdmin],
       component: <Assessments />,
     },
     {
@@ -90,7 +111,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
           path: "/processingactivity",
           showInMenu: true,
           target: "/processingactivity",
-          roles: [UserRole.authSuperAdmin],
+          // roles: [UserRole.authSuperAdmin],
           component: <ProcessingActivityRoute baseUrl={"/processingactivity"} />,
         },
         {
@@ -99,7 +120,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
           path: "/assets",
           showInMenu: true,
           target: "/assets",
-          roles: [UserRole.authSuperAdmin],
+          // roles: [UserRole.authSuperAdmin],
           component: <AssetsRoute baseUrl={"/assets"} />,
         },
         {
@@ -108,7 +129,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
           path: "/vendor",
           showInMenu: true,
           target: "/vendor",
-          roles: [UserRole.authSuperAdmin],
+          // roles: [UserRole.authSuperAdmin],
           component: <Vendor />,
         },
         {
@@ -117,12 +138,13 @@ export const MainLayout: React.FC = (): React.ReactElement => {
           path: "/location",
           showInMenu: true,
           target: "/location",
-          roles: [UserRole.authSuperAdmin],
+          // roles: [UserRole.authSuperAdmin],
           component: <Location />,
         },
-      ].filter((menu) => reader.hasRole(menu.roles)),
+      ],
+      // .filter((menu) => hasRole(menu.roles)),
       target: "/inventory",
-      roles: [UserRole.authSuperAdmin],
+      // roles: [UserRole.authSuperAdmin],
       component: <Inventory />,
     },
     {
@@ -131,7 +153,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/workflow",
       showInMenu: true,
       target: "/workflow",
-      roles: [UserRole.authSuperAdmin],
+      // roles: [UserRole.authSuperAdmin],
       component: <Workflow />,
     },
     {
@@ -140,7 +162,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/activity",
       showInMenu: true,
       target: "/activity",
-      roles: [UserRole.authSuperAdmin],
+      // roles: [UserRole.authSuperAdmin],
       component: <Activity />,
     },
 
@@ -150,7 +172,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/report",
       showInMenu: true,
       target: "/report",
-      roles: [UserRole.authSuperAdmin],
+      // roles: [UserRole.authSuperAdmin],
       component: <Report />,
     },
     {
@@ -159,7 +181,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/setting",
       showInMenu: true,
       target: "/setting",
-      roles: [UserRole.authSuperAdmin],
+      // roles: [UserRole.authSuperAdmin],
       component: <Setting />,
     },
 
@@ -169,10 +191,11 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/configuration",
       showInMenu: true,
       target: "/configuration",
-      roles: [UserRole.authSuperAdmin],
+      // roles: [UserRole.authSuperAdmin],
       component: <Configuration />,
     },
-  ].filter((menu) => reader.hasRole(menu.roles));
+  ];
+  // .filter((menu) => hasRole(menu.roles));
 
   const [collapse, setCollapse] = React.useState(false);
 
@@ -183,7 +206,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
   const onClick = ({ key }: any) => {
     switch (key) {
       case "logout":
-        auth24.logout();
+        login(window.location.origin + "/");
         break;
       default:
     }
@@ -232,14 +255,16 @@ export const MainLayout: React.FC = (): React.ReactElement => {
     </Menu>
   );
 
-  const [alias, setAlias] = React.useState("unknown");
+  const [alias, setAlias] = React.useState("guest");
 
-  useEffect(() => {
-    auth24.getOwnDetails().then((user) => {
-      const alias = user.name ?? user.employeeId;
-      if (alias) setAlias(alias);
-    });
-  }, []);
+  // useEffect(() => {
+  //   auth24.getOwnDetails().then((user) => {
+  //     const alias = user.name ?? user.employeeId;
+  //     if (alias) setAlias(alias);
+  //   });
+  // }, []);
+
+  console.log(menuItems.length);
 
   return menuItems.length === 0 ? (
     <Result
@@ -247,7 +272,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       title="403"
       subTitle="ท่านยังไม่มีสิทธิ์ในการเข้าถึงระบบ CSM กรุณาตรวจสอบสิทธิ์ในการเข้าถึงกับผู้ดูแลระบบ."
       extra={
-        <Button type="primary" onClick={() => auth24.login()}>
+        <Button type="primary" onClick={() => login(window.location.origin + "/")}>
           Click to Login
         </Button>
       }
@@ -257,7 +282,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       <OverviewSettingModal isVisible={isModalVisibleOverviewSetting} handleCancel={() => setIsModalVisibleOverviewSetting(false)} />
       <Router>
         <Modal title="Profile" visible={isModalVisibleProfile} onOk={handleOkProfile} onCancel={handleCancelProfile}>
-          <Form name="profile" layout="inline">
+          {/* <Form name="profile" layout="inline">
             <Row justify="space-between">
               <Col style={{ marginRight: 150 }}>
                 <Form.Item label="Full Name">{alias}</Form.Item>
@@ -269,7 +294,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
                 <Form.Item label="Group">{reader.getEmployeeGroup()}</Form.Item>
               </Col>
             </Row>
-          </Form>
+          </Form> */}
         </Modal>
         <Modal title="Reset password" visible={isModalVisibleResetPassword} onOk={handleOkResetPassword} onCancel={handleCancelResetPassword}>
           <p>Reset your password</p>

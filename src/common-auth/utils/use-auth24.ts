@@ -64,9 +64,7 @@ export const useAuth24 = () => {
   const auth24: Auth24 = {
     token: () => {
       const rawToken = localStorage.getItem(auth24TokenKey);
-      const decodedToken =
-        (rawToken && jwt.decode(rawToken, { json: true, complete: true })) ||
-        null;
+      const decodedToken = (rawToken && jwt.decode(rawToken, { json: true, complete: true })) || null;
       const parsedPayload = (decodedToken?.payload as Auth24Payload) || null;
       return {
         rawToken: rawToken || null,
@@ -75,13 +73,10 @@ export const useAuth24 = () => {
     },
     login: () => {
       const state = uuidv4();
-      localStorage.setItem("state", state);
-
+      sessionStorage.setItem("state", state);
       const codeVerifier = uuidv4();
-      localStorage.setItem("code_verifier", codeVerifier);
-
+      sessionStorage.setItem("code_verifier", codeVerifier);
       const codeChallenge = createHash(codeVerifier);
-
       window.location.href = `${authUrl}/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUrl}&scope=read&state=${state}&code_challenge=${codeChallenge}`;
     },
     authenticated: () => {
@@ -94,33 +89,31 @@ export const useAuth24 = () => {
       return true;
     },
     logout: (path?: string) => {
-      localStorage.removeItem(auth24TokenKey);
-      localStorage.removeItem(auth24RefreshTokenKey);
+      sessionStorage.removeItem(auth24TokenKey);
+      sessionStorage.removeItem(auth24RefreshTokenKey);
       window.location.href = path || redirectUrl;
     },
     unAuthenticated: (path?: string) => {
       if (
-        localStorage.getItem(auth24TokenKey) ||
-        localStorage.getItem(auth24RefreshTokenKey)
+        // localStorage.getItem(auth24TokenKey) || localStorage.getItem(auth24RefreshTokenKey)
+        sessionStorage.getItem(auth24TokenKey) ||
+        sessionStorage.getItem(auth24RefreshTokenKey)
       ) {
-        localStorage.removeItem(auth24TokenKey);
-        localStorage.removeItem(auth24RefreshTokenKey);
+        // localStorage.removeItem(auth24TokenKey);
+        // localStorage.removeItem(auth24RefreshTokenKey);
+        sessionStorage.removeItem(auth24TokenKey);
+        sessionStorage.removeItem(auth24RefreshTokenKey);
         window.location.href = path || redirectUrl;
       }
     },
-    setAccessToken: (accessToken: string) =>
-      localStorage.setItem(auth24TokenKey, accessToken),
-    setRefreshToken: (refreshToken: string) =>
-      localStorage.setItem(auth24RefreshTokenKey, refreshToken),
+    setAccessToken: (accessToken: string) => localStorage.setItem(auth24TokenKey, accessToken),
+    setRefreshToken: (refreshToken: string) => localStorage.setItem(auth24RefreshTokenKey, refreshToken),
     getRefreshToken: () => localStorage.getItem(auth24RefreshTokenKey),
     getRefreshTTL: () => {
       const REFRESH_BEFORE_EXPIRE_IN_SECOND = 10;
       const { parsedPayload } = auth24.token();
       if (parsedPayload?.exp) {
-        const ttl =
-          dayjs
-            .duration(dayjs(parsedPayload.exp * 1000).diff(dayjs()))
-            .asSeconds() - REFRESH_BEFORE_EXPIRE_IN_SECOND;
+        const ttl = dayjs.duration(dayjs(parsedPayload.exp * 1000).diff(dayjs())).asSeconds() - REFRESH_BEFORE_EXPIRE_IN_SECOND;
         // console.log(`next refresh in ttt(ms) ${ttl}`)
         return ttl * 1000;
       }
@@ -133,7 +126,7 @@ export const useAuth24 = () => {
           refreshToken: auth24.getRefreshToken(),
           clientId: clientId,
         },
-        { headers: { Authorization: `Bearer ${auth24.token().rawToken}` } }
+        { headers: { Authorization: `Bearer ${auth24.token().rawToken}` } },
       );
       auth24.setAccessToken(data.access_token);
       auth24.setRefreshToken(data.refreshToken);
