@@ -50,6 +50,9 @@ export const MainLayout: React.FC = (): React.ReactElement => {
   const { tokenAccess, login } = useId24();
   const appConfig = loadAppConfig();
   const [roles, setRoles] = useState<any>([]);
+  useEffect(() => {
+    getUserAccess();
+  }, []);
 
   const getUserAccess = async () => {
     const datacon = [] as string[];
@@ -78,7 +81,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/dashboard",
       showInMenu: true,
       target: "/dashboard",
-      // roles: [UserRole.authSuperAdmin],
+      roles: [UserRole.authSuperAdmin],
       component: <OverviewDashboard />,
     },
     {
@@ -87,7 +90,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/policymanagement",
       showInMenu: true,
       target: "/policymanagement",
-      // roles: [UserRole.authSuperAdmin],
+      roles: [UserRole.authSuperAdmin],
       component: <PolicyManagement baseUrl={"/policymanagement"} />,
     },
     {
@@ -96,7 +99,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/assessments",
       showInMenu: true,
       target: "/assessments",
-      // roles: [UserRole.authSuperAdmin],
+      roles: [UserRole.authSuperAdmin],
       component: <Assessments />,
     },
     {
@@ -111,7 +114,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
           path: "/processingactivity",
           showInMenu: true,
           target: "/processingactivity",
-          // roles: [UserRole.authSuperAdmin],
+          roles: [UserRole.authSuperAdmin],
           component: <ProcessingActivityRoute baseUrl={"/processingactivity"} />,
         },
         {
@@ -120,7 +123,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
           path: "/assets",
           showInMenu: true,
           target: "/assets",
-          // roles: [UserRole.authSuperAdmin],
+          roles: [UserRole.authSuperAdmin],
           component: <AssetsRoute baseUrl={"/assets"} />,
         },
         {
@@ -129,7 +132,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
           path: "/vendor",
           showInMenu: true,
           target: "/vendor",
-          // roles: [UserRole.authSuperAdmin],
+          roles: [UserRole.authSuperAdmin],
           component: <Vendor />,
         },
         {
@@ -138,13 +141,12 @@ export const MainLayout: React.FC = (): React.ReactElement => {
           path: "/location",
           showInMenu: true,
           target: "/location",
-          // roles: [UserRole.authSuperAdmin],
+          roles: [UserRole.authSuperAdmin],
           component: <Location />,
         },
-      ],
-      // .filter((menu) => hasRole(menu.roles)),
+      ].filter((menu) => hasRole(menu.roles)),
       target: "/inventory",
-      // roles: [UserRole.authSuperAdmin],
+      roles: [UserRole.authSuperAdmin],
       component: <Inventory />,
     },
     {
@@ -153,7 +155,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/workflow",
       showInMenu: true,
       target: "/workflow",
-      // roles: [UserRole.authSuperAdmin],
+      roles: [UserRole.authSuperAdmin],
       component: <Workflow />,
     },
     {
@@ -162,7 +164,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/activity",
       showInMenu: true,
       target: "/activity",
-      // roles: [UserRole.authSuperAdmin],
+      roles: [UserRole.authSuperAdmin],
       component: <Activity />,
     },
 
@@ -172,7 +174,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/report",
       showInMenu: true,
       target: "/report",
-      // roles: [UserRole.authSuperAdmin],
+      roles: [UserRole.authSuperAdmin],
       component: <Report />,
     },
     {
@@ -181,7 +183,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/setting",
       showInMenu: true,
       target: "/setting",
-      // roles: [UserRole.authSuperAdmin],
+      roles: [UserRole.authSuperAdmin],
       component: <Setting />,
     },
 
@@ -191,11 +193,10 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       path: "/configuration",
       showInMenu: true,
       target: "/configuration",
-      // roles: [UserRole.authSuperAdmin],
+      roles: [UserRole.authSuperAdmin],
       component: <Configuration />,
     },
-  ];
-  // .filter((menu) => hasRole(menu.roles));
+  ].filter((menu) => hasRole(menu.roles));
 
   const [collapse, setCollapse] = React.useState(false);
 
@@ -251,7 +252,9 @@ export const MainLayout: React.FC = (): React.ReactElement => {
       <Menu.Item key="profile" onClick={showModalProfile}>
         Profile
       </Menu.Item>
-      <Menu.Item key="logout">Logout</Menu.Item>
+      <Menu.Item key="logout" onClick={() => login(window.location.origin + "/")}>
+        Logout
+      </Menu.Item>
     </Menu>
   );
 
@@ -263,8 +266,6 @@ export const MainLayout: React.FC = (): React.ReactElement => {
   //     if (alias) setAlias(alias);
   //   });
   // }, []);
-
-  console.log(menuItems.length);
 
   return menuItems.length === 0 ? (
     <Result
@@ -281,8 +282,8 @@ export const MainLayout: React.FC = (): React.ReactElement => {
     <>
       <OverviewSettingModal isVisible={isModalVisibleOverviewSetting} handleCancel={() => setIsModalVisibleOverviewSetting(false)} />
       <Router>
-        <Modal title="Profile" visible={isModalVisibleProfile} onOk={handleOkProfile} onCancel={handleCancelProfile}>
-          {/* <Form name="profile" layout="inline">
+        {/* <Modal title="Profile" visible={isModalVisibleProfile} onOk={handleOkProfile} onCancel={handleCancelProfile}> */}
+        {/* <Form name="profile" layout="inline">
             <Row justify="space-between">
               <Col style={{ marginRight: 150 }}>
                 <Form.Item label="Full Name">{alias}</Form.Item>
@@ -295,7 +296,7 @@ export const MainLayout: React.FC = (): React.ReactElement => {
               </Col>
             </Row>
           </Form> */}
-        </Modal>
+        {/* </Modal> */}
         <Modal title="Reset password" visible={isModalVisibleResetPassword} onOk={handleOkResetPassword} onCancel={handleCancelResetPassword}>
           <p>Reset your password</p>
         </Modal>
